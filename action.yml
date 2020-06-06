@@ -18,6 +18,13 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         java-version: 1.8
+    - name: Cache (NDK)
+      uses: actions/cache@v2
+      with:
+      path: ${ANDROID_HOME}/ndk/21.2.6472646
+      key: ndk-cache
+    - name: Install NDK
+      run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;21.2.6472646" --sdk_root=${ANDROID_SDK_ROOT}
     - name: "Permission to gradle File"
       run: chmod +x gradlew
     - name: Build with Gradle
